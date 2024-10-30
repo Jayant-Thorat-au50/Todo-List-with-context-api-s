@@ -1,3 +1,6 @@
-.isFinishedCheck{
-    transform: scale(3);
+.isFinishedCheck {
+  transform: scale(3);
+}
+.todoData {
+  text-decoration: underline;
 }

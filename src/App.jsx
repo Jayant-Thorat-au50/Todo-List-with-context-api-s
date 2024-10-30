@@ -12,6 +12,7 @@ function App() {
       <section className=" container-fluid">
         <section className=" row">
           <section className="col-12  border border-2 border-danger d-flex justify-content-center align-items-center addToDO  ">
+            {/* getting the data of the single todo in the list */}
             <AddToDo
               updateList={(toDo) =>
                 setList([
@@ -21,6 +22,7 @@ function App() {
               }
             />
           </section>
+          {/* the list of the todos  */}
           <ToDOList />
         </section>
       </section>
