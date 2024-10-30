@@ -24,7 +24,7 @@ function AddToDo({ updateList }) {
           } else alert("please enter a todo name");
         }}
       >
-        add ToDo
+        add ToDo to the list
       </button>
     </div>
   );
