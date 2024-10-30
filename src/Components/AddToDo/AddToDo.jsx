@@ -9,7 +9,7 @@ function AddToDo({ updateList }) {
       <input
         type="text"
         placeholder="enter next todo....."
-      
+        className=" text-center"
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       />
