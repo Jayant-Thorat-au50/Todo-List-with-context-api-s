@@ -7,7 +7,6 @@ import ToDoReducer from "./Reducer/ToDoReducer";
 import ToDoDispatchContext from "./Context/ToDoDispatchContext";
 
 function App() {
-  // const [list, setList] = useState([]);
   const [list, dispatch] = useReducer(ToDoReducer, []);
 
   return (
