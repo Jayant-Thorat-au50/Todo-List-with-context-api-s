@@ -2,34 +2,31 @@ import ToDO from "../ToDo/ToDO";
 import "./ToDoList.css";
 import { useContext } from "react";
 import ToDoContext from "../../Context/ToDoContext";
+import ToDoDispatchContext from "../../Context/ToDoDispatchContext";
 
 function ToDOList() {
   // state of the list imported using context api's
-  const { list, setList } = useContext(ToDoContext);
+  const { list } = useContext(ToDoContext);
+
+  // dispatch function from the useReducer hook
+  const { dispatch } = useContext(ToDoDispatchContext);
 
   // function for assigning the change to the checkbox
   const changeFinishedFun = (newStatus, t) => {
-    const toDoWithUpdatedStatus = list.map((todoToBeUpdated) => {
-      if (todoToBeUpdated.id == t.id) {
-        t.isFinished = newStatus;
-      }
-      return todoToBeUpdated;
+    dispatch({
+      type: "changeFinished",
+      payload: { newStatus: newStatus, t: t },
     });
-    setList(toDoWithUpdatedStatus);
   };
 
   // function for deleting the todo from the todo list
   const onDeleteFun = (t) => {
-    const listAfterDeleting = list.filter(
-      (todoToBedeleted) => t.id != todoToBedeleted.id
-    );
-
-    setList(listAfterDeleting);
+    dispatch({ type: "onDelete", payload: { t: t } });
   };
 
   // function for updating the todo in the list
-  const onSaveFun = (t, newData) => {
-    t.name = newData;
+  const onSaveFun = (todo, newText) => {
+    dispatch({ type: "onSave", payload: { t: todo, newData: newText } });
   };
 
   // here is the ui of the list that can have multiple todos
@@ -39,10 +36,10 @@ function ToDOList() {
         <ToDO
           key={t.id}
           todoData={t.name}
-          id={t.id}
+          status={false}
           changeFinished={(newStatus) => changeFinishedFun(newStatus, t)}
           onDelete={() => onDeleteFun(t)}
-          onSave={(newData) => onSaveFun(t, newData)}
+          onSave={(changedData) => onSaveFun(t, changedData)}
         />
       ))}
     </div>
