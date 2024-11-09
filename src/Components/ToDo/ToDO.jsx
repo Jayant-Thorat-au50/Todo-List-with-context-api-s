@@ -9,7 +9,7 @@ function ToDO({ todoData, status, changeFinished, onDelete, onSave }) {
     dataToShow: todoData,
   });
 
-  const {dispatch} = useContext(ToDoDispatchContext)
+
 
   // here is the ui of the single todo
   return (
