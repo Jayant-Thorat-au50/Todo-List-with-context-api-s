@@ -1,30 +1,32 @@
 import ToDOList from "./Components/ToDoList/ToDOList";
 import "./App.css";
 import AddToDo from "./Components/AddToDo/AddToDo";
-// import ToDoContext from "./Context/ToDoContext";
-// import { useReducer } from "react";
-// import ToDoReducer from "./Reducer/ToDoReducer";
-// import ToDoDispatchContext from "./Context/ToDoDispatchContext";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import {ADD_TODO,DEL_TODO,EDIT_TODO,CHANGE_STATUS} from "./Actions/ToDoActions";
+import { bindActionCreators } from "redux";
+
 
 function App() {
-  // const [list, dispatch] = useReducer(ToDoReducer, []);
 
+  const dispatch = useDispatch()
+
+  const actions = bindActionCreators({ADD_TODO,DEL_TODO,EDIT_TODO,CHANGE_STATUS}, dispatch)
+  
   return (
-    // <ToDoContext.Provider value={{ list }}>
-    //   <ToDoDispatchContext.Provider value={{ dispatch }}>
     <section className=" container-fluid">
       <section className=" row">
         <section className="col-12  border border-2 border-danger d-flex justify-content-center align-items-center addToDO  ">
           {/* getting the data of the single todo in the list */}
-          <AddToDo />
+          <AddToDo ADD_TODO =  {actions.ADD_TODO}/>
         </section>
         {/* the list of the todos  */}
-        <ToDOList />
+        <ToDOList 
+        EDIT_TODO = {actions.EDIT_TODO}
+        DEL_TODO = {actions.DEL_TODO } 
+        CHANGE_STATUS ={ actions.CHANGE_STATUS}
+         />
       </section>
     </section>
-    //   </ToDoDispatchContext.Provider>
-    // </ToDoContext.Provider>
   );
 }
 

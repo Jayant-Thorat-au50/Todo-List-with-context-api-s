@@ -1,11 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-function AddToDo() {
+
+function AddToDo({ADD_TODO}) {
   const [inputText, setInputText] = useState("");
 
-
-  const dispatch = useDispatch();
 
   const addTodo = (inputText)=>({ type: "add_ToDo", payload: { toDo: inputText } })
 
@@ -17,7 +15,7 @@ function AddToDo() {
         placeholder="enter next todo....."
         className=" text-center"
         value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
+        onChange={e => setInputText(e.target.value)}
       />
 
       {/* button that updates the single todo in the list */}
@@ -26,7 +24,7 @@ function AddToDo() {
         onClick={() => {
           if (inputText) {
             setInputText("");
-            dispatch(addTodo('todo 1'));
+            ADD_TODO(inputText);
           } else alert("please enter a todo name");
         }}
       >

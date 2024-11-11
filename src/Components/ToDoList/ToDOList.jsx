@@ -1,39 +1,24 @@
 import ToDO from "../ToDo/ToDO";
 import "./ToDoList.css";
-// import { useContext } from "react";
-// import ToDoContext from "../../Context/ToDoContext";
-// import ToDoDispatchContext from "../../Context/ToDoDispatchContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-function ToDOList() {
-  const dispatch = useDispatch();
+function ToDOList({EDIT_TODO, DEL_TODO, CHANGE_STATUS}) {
+
   const list = useSelector((state) => state.ToDo);
-
-  const changeFinished = (newStatus, t) => ({
-    type: "changeFinished",
-    payload: { newStatus: newStatus, t: t },
-  });
-
-  const deleteTodo = (t) => ({ type: "onDelete", payload: { t: t } });
-
-  const saveTodo = (todo, newText) => ({
-    type: "onSave",
-    payload: { t: todo, newData: newText },
-  });
 
   // function for assigning the change to the checkbox
   const changeFinishedFun = (newStatus, t) => {
-    dispatch(changeFinished(newStatus, t));
+    CHANGE_STATUS(newStatus,t)
   };
 
   // function for deleting the todo from the todo list
   const onDeleteFun = (t) => {
-    dispatch(deleteTodo(t));
+    DEL_TODO(t)
   };
 
   // function for updating the todo in the list
   const onSaveFun = (todo, newText) => {
-    dispatch(saveTodo(todo, newText));
+    EDIT_TODO(todo,newText)
   };
 
   // here is the ui of the list that can have multiple todos
