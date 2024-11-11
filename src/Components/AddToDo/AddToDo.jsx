@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useState } from "react";
-import ToDoDispatchContext from "../../Context/ToDoDispatchContext";
+import { useDispatch } from "react-redux";
 function AddToDo() {
   const [inputText, setInputText] = useState("");
-  const { dispatch } = useContext(ToDoDispatchContext);
+
+
+  const dispatch = useDispatch();
+
+  const addTodo = (inputText)=>({ type: "add_ToDo", payload: { toDo: inputText } })
 
   return (
     <div className=" col-12 d-flex justify-content-center">
@@ -22,7 +26,7 @@ function AddToDo() {
         onClick={() => {
           if (inputText) {
             setInputText("");
-            dispatch({ type: "add_ToDo", payload: { toDo: inputText } });
+            dispatch(addTodo('todo 1'));
           } else alert("please enter a todo name");
         }}
       >

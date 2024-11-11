@@ -1,32 +1,39 @@
 import ToDO from "../ToDo/ToDO";
 import "./ToDoList.css";
-import { useContext } from "react";
-import ToDoContext from "../../Context/ToDoContext";
-import ToDoDispatchContext from "../../Context/ToDoDispatchContext";
+// import { useContext } from "react";
+// import ToDoContext from "../../Context/ToDoContext";
+// import ToDoDispatchContext from "../../Context/ToDoDispatchContext";
+import { useDispatch, useSelector } from "react-redux";
 
 function ToDOList() {
-  // state of the list imported using context api's
-  const { list } = useContext(ToDoContext);
+  const dispatch = useDispatch();
+  const list = useSelector((state) => state.ToDo);
 
-  // dispatch function from the useReducer hook
-  const { dispatch } = useContext(ToDoDispatchContext);
+  const changeFinished = (newStatus, t) => ({
+    type: "changeFinished",
+    payload: { newStatus: newStatus, t: t },
+  });
+
+  const deleteTodo = (t) => ({ type: "onDelete", payload: { t: t } });
+
+  const saveTodo = (todo, newText) => ({
+    type: "onSave",
+    payload: { t: todo, newData: newText },
+  });
 
   // function for assigning the change to the checkbox
   const changeFinishedFun = (newStatus, t) => {
-    dispatch({
-      type: "changeFinished",
-      payload: { newStatus: newStatus, t: t },
-    });
+    dispatch(changeFinished(newStatus, t));
   };
 
   // function for deleting the todo from the todo list
   const onDeleteFun = (t) => {
-    dispatch({ type: "onDelete", payload: { t: t } });
+    dispatch(deleteTodo(t));
   };
 
   // function for updating the todo in the list
   const onSaveFun = (todo, newText) => {
-    dispatch({ type: "onSave", payload: { t: todo, newData: newText } });
+    dispatch(saveTodo(todo, newText));
   };
 
   // here is the ui of the list that can have multiple todos
@@ -38,7 +45,7 @@ function ToDOList() {
           todoData={t.name}
           status={false}
           changeFinished={(newStatus) => changeFinishedFun(newStatus, t)}
-          onDelete={() => onDeleteFun(t)}
+          onDelete={() => onDeleteFun(t.id)}
           onSave={(changedData) => onSaveFun(t, changedData)}
         />
       ))}

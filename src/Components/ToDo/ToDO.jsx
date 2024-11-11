@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./ToDo.css";
-import ToDoDispatchContext from "../../Context/ToDoDispatchContext";
+
 function ToDO({ todoData, status, changeFinished, onDelete, onSave }) {
   // setting the states of the todo
   const [todoState, setTodoState] = useState({
@@ -8,8 +8,6 @@ function ToDO({ todoData, status, changeFinished, onDelete, onSave }) {
     isEditing: false,
     dataToShow: todoData,
   });
-
-
 
   // here is the ui of the single todo
   return (
@@ -19,7 +17,7 @@ function ToDO({ todoData, status, changeFinished, onDelete, onSave }) {
         type="checkbox"
         className="fs-2 isFinishedCheck col-1"
         checked={todoState.finished}
-        onChange={e => {
+        onChange={(e) => {
           setTodoState((state) => ({
             ...state,
             finished: e.target.checked,

@@ -1,4 +1,10 @@
-function ToDoReducer(state, action) {
+
+
+
+
+function ToDoReducer(state=[], action) {
+
+
   //add todo
 
   if (action.type == "add_ToDo") {
@@ -19,9 +25,9 @@ function ToDoReducer(state, action) {
 
     // delete todo
   } else if (action.type == "onDelete") {
-    const t = action.payload.t;
+    const tId = action.payload.t;
     const listAfterDeleting = state.filter(
-      (todoToBedeleted) => t.id != todoToBedeleted.id
+      (todoToBedeleted) => tId != todoToBedeleted.id
     );
 
     return listAfterDeleting;
@@ -38,7 +44,7 @@ function ToDoReducer(state, action) {
       return t;
     });
     return updatedList;
-  }
+  }else return state
 }
 
 export default ToDoReducer;
